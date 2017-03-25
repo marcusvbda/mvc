@@ -16,4 +16,10 @@ class model
     	$conn = model::connect();
     	return $conn->query($query)->fetchAll();
     }
+
+    public function exec($query)
+    {
+    	$conn = model::connect();
+    	return $conn->exec($query);
+    }
 }

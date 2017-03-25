@@ -1,5 +1,5 @@
 <?php
-	define('APP_NAME','MVC');
+	define('APP_NAME','CRUD MVC');
 	define('PUBLIC_PATH',__dir__.'/public');
 	define('ROOT_PATH',__dir__);
 
