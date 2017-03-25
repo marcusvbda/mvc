@@ -9,23 +9,36 @@ class input
 		switch (uppertrim($_SERVER['REQUEST_METHOD'])) 
 		{
 			case 'GET':
-				$_REQUEST=$_GET;
+				$_REQUEST['INPUTS']=$_GET;
 				break;
 			case 'POST':
-				$_REQUEST=$_POST;
+				$_REQUEST['INPUTS']=$_POST;
 				break;
 			case 'PUT':
-				$_REQUEST=$_POST;
+				$_REQUEST['INPUTS']=$_POST;
 				break;
 			case 'DELETE':
-				$_REQUEST=$_POST;
+				$_REQUEST['INPUTS']=$_POST;
 				break;
 		}
-		unset($_GET,$_POST);
+		if(isset($_FILES))
+			$_REQUEST['FILES']=$_FILES;
+		unset($_GET,$_POST,$_FILES);
 	}	
 
-	public function all()
+	public function get()
 	{
-		return $_REQUEST;
+		if(isset($_REQUEST['INPUTS']))
+			return $_REQUEST['INPUTS'];
+		else
+			null;
+	}
+
+	public function files()
+	{
+		if(isset($_REQUEST['FILES']))
+			return $_REQUEST['FILES'];
+		else
+			null;
 	}
 }

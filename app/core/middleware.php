@@ -5,20 +5,19 @@ class middleware
 {
 	public function verifyToken()
 	{
-		if(!isset($_REQUEST['__TOKEN']))
+		if(!isset($_REQUEST['INPUTS']['__TOKEN']))
 		{
-			if(!$_REQUEST)
+			if(!$_REQUEST['INPUTS'])
 			{
-				unset($_REQUEST['__TOKEN']);
+				unset($_REQUEST['INPUTS']['__TOKEN']);
 				return true;
 			}
 			else
 				return false;
 		}
-
-		if($_REQUEST['__TOKEN']==__TOKEN)
+		if($_REQUEST['INPUTS']['__TOKEN']==__TOKEN)
 		{
-			unset($_REQUEST['__TOKEN']);
+			unset($_REQUEST['INPUTS']['__TOKEN']);
 			return true;
 		}
 		else
