@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
-
-
+use App\Core\Middleware;
+use App\Core\Input;
 class App 
 {
 	protected $request;
@@ -9,6 +9,7 @@ class App
 	public function __construct()
 	{
 		$this->request = Router::processUrl($this->getUrl(),$_SERVER['REQUEST_METHOD']);
+		input::define($_SERVER['REQUEST_METHOD']);
 	}	
 
 	public function getUrl()
@@ -19,7 +20,13 @@ class App
 
 	public function run()
 	{
-		Router::executar($this->request['CONTROLLER'],$this->request['METODO'],$this->request['PARAMETROS']);		
+		if(Middleware::verifyToken())
+			Router::executar($this->request['CONTROLLER'],$this->request['METODO'],$this->request['PARAMETROS']);
+		else
+		{
+			echo json_encode(['success'=>false,'msg'=>'request indevido']);
+			exit;
+		}		
 	}
 	
 }

@@ -56,6 +56,11 @@ class Router
 			return explode('/' , filter_var(rtrim($url, '/'),FILTER_SANITIZE_URL));
 	}
 
+	public function go($url)
+	{
+		header("Location:$url");
+	}
+
 	
 
 

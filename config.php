@@ -1,4 +1,5 @@
 <?php
+	define('BASE_URL','http://localhost/mvc');
 	define('APP_NAME','CRUD MVC');
 	define('PUBLIC_PATH',__dir__.'/public');
 	define('ROOT_PATH',__dir__);
@@ -9,3 +10,5 @@
 	define('DB_PASS', '');
 	define('DB_SERVER', 'localhost:3306');
 // database
+
+	define('__TOKEN',md5(APP_NAME));
