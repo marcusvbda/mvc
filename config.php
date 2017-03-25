@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	define('BASE_URL','http://localhost/mvc');
 	define('APP_NAME','CRUD MVC');
 	define('PUBLIC_PATH',__dir__.'/public');
@@ -12,3 +13,10 @@
 // database
 
 	define('__TOKEN',md5(APP_NAME));
+
+	
+// email
+	define('SMTP', 'smtp.email.com.br');
+	define('SMTP_PORTA', '587');
+	define('EMAIL', 'email@email.com');
+	define('SENHA', '******');

@@ -6,4 +6,9 @@ class homeController extends controller
 	{
 		$this->view('home.index');
 	}
+
+	public function getInfo()
+	{
+		phpinfo();
+	}
 }

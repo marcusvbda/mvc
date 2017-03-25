@@ -11,6 +11,16 @@
 </div>
 <hr>
 <div class="row">    		
+	<form method="POST">
+		<input type="text" name="__TOKEN" value="<?php echo __TOKEN;  ?>" style="display: none">
+		<div class="col-md-11">
+			<input type="text" class="form-control" maxlength="50" name="filtro" placeholder="Filtro de Busca" value="<?php echo $filtro; ?>">
+		</div>
+		<div class="col-md-1">
+			<input type="submit"  class="btn btn-primary btn-sm" value="Filtrar">
+		</div>
+	</form>
+	<hr>
     <table class="table table-striped">
 		<thead>
 			<tr>

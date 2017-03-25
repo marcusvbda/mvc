@@ -14,6 +14,11 @@ class produtos extends Model
 		return Model::query("select * from produtos");
 	}
 
+	public function get($where)
+	{
+		return Model::query("select * from produtos where $where");
+	}
+
 	public function destroy($id)
 	{
 		return Model::exec("delete from produtos where id = $id");

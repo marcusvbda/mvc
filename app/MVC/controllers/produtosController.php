@@ -10,7 +10,15 @@ class produtosController extends controller
 	public function getIndex()
 	{
 		$produtos = produtos::all();
-		$this->view('produtos.index',compact('produtos'));
+		$filtro = "";
+		$this->view('produtos.index',compact('produtos','filtro'));
+	}
+
+	public function postIndex()
+	{
+		$filtro = Input::get()['filtro'];
+		$produtos = produtos::get("titulo like'%$filtro%'");
+		$this->view('produtos.index',compact('produtos','filtro'));
 	}
 
 	public function getCreate()
@@ -21,7 +29,14 @@ class produtosController extends controller
 	public function getShow($id)
 	{
 		$produto = produtos::find(base64_decode($id));
-		$this->view('produtos.show',compact('produto'));
+		if(isset($_SESSION['mensagem']))
+		{
+			$mensagem = $_SESSION['mensagem'];			
+			unset($_SESSION['mensagem']);
+		}
+		else
+			$mensagem = "";
+		$this->view('produtos.show',compact('produto','mensagem'));
 	}
 
 	public function getEdit($id)
@@ -50,7 +65,12 @@ class produtosController extends controller
 			}
 			$produto = Produtos::update($dados['id'],$dados);
 			if($dados['estoque']<=0)
-				$this->emailnotificacao($dados);
+			{
+				if(!$this->emailnotificacao($dados));
+				{
+					$_SESSION['mensagem']="Erro ao enviar email de notificação, configure os dados do email corretamente";
+				}
+			}
 			Router::go(asset('produtos/show/').base64_encode($dados['id']));
 		}
 		catch(Exception $e)
@@ -117,6 +137,30 @@ class produtosController extends controller
 
 	private function emailnotificacao($dados)
 	{
-		print_r($dados);exit;
+		try
+		{
+			ini_set("SMTP",SMTP);
+			ini_set("smtp_port",SMTP_PORTA);
+			ini_set('sendmail_from',EMAIL);
+			ini_set('auth_username ',EMAIL);
+			ini_set('auth_password  ',SENHA);
+			if(uppertrim($dados['email'])!="")
+			{
+				$destino = $dados['email'];
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+			    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			    $headers .= 'From: $nome <$email>';		    
+			    $texto = "O estoque do produto id :".$dados['id']." e titulo : ".$dados['titulo']." chegou a zero, verifique ...";
+			    if(mail($destino, "Notificação de baixo estoque", $texto, $headers))
+			    	return true;
+			    else
+			    	return false;
+			}
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
 	}
+
 }

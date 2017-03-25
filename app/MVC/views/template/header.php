@@ -8,4 +8,9 @@
   <body>
 
     <div class="container">
-    	
+    	<?php 
+    		if(isset($mensagem)):
+    			if($mensagem!="")
+    				echo "<script>alert('$mensagem');</script>";
+    		endif;
+    	?>
