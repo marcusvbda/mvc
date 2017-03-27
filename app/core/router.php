@@ -47,11 +47,13 @@ class Router
 		}
 		$metodo = strtolower($request_method).ucfirst($metodo);	
 		
+		// retorna processado
 		return ['NOME_CONTROLLER'=>$nome_controller,'CONTROLLER'=>$controller,'METODO'=>$metodo,'PARAMETROS'=> $parametros = $url ? array_values($url) : []];
 	}
 
 	public  function parseUrl($url)
 	{
+		// converte a url para array
 		if(isset($url))
 			return explode('/' , filter_var(rtrim($url, '/'),FILTER_SANITIZE_URL));
 	}
