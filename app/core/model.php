@@ -5,9 +5,8 @@ class model
 {
 	public function connect()
 	{
-		$conn = new PDO('mysql:host='.DB_SERVER.';dbname='.DB_NAME, DB_USER, DB_PASS);
+		$conn = new PDO('mysql:host='.env('DB_SERVER').';dbname='.env('DB_NAME'), env('DB_USER'), env('DB_PASS'));
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 		return $conn;
 	}
 

@@ -15,7 +15,7 @@ class middleware
 			else
 				return false;
 		}
-		if($_REQUEST['INPUTS']['__TOKEN']==__TOKEN)
+		if($_REQUEST['INPUTS']['__TOKEN']==env('__TOKEN'))
 		{
 			unset($_REQUEST['INPUTS']['__TOKEN']);
 			return true;

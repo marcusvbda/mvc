@@ -1,5 +1,6 @@
 <?php
 namespace App\Core;
+use App\Core\Compiler;
 
 class controller 
 {
@@ -7,6 +8,8 @@ class controller
 	public function view($view,$data=[])
 	{
 		extract($data);
-		include(ROOT_PATH.'/app/MVC/views/'.str_replace('.', '/', $view).'.php');
+		$compiler = new Compiler();
+		$view = $compiler->view($compiler->make($view));
+		echo $view;
 	}
 }

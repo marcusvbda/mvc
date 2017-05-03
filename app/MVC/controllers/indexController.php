@@ -1,10 +1,10 @@
 <?php
 use App\Core\Controller;
-class homeController extends controller
+class indexController extends controller
 {	
 	public function getIndex()
 	{
-		$this->view('home.index');
+		return $this->view('home.index');
 	}
 
 	public function getInfo()

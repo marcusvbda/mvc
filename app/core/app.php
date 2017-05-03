@@ -2,6 +2,7 @@
 namespace App\Core;
 use App\Core\Middleware;
 use App\Core\Input;
+
 class App 
 {
 	protected $request;
@@ -9,7 +10,7 @@ class App
 	public function __construct()
 	{
 		// processa o conteudo do $_GET['url'] e retorna o resultado
-		$this->request = Router::processUrl($this->getUrl(),$_SERVER['REQUEST_METHOD']);
+		$this->request = Route::processUrl($this->getUrl(),$_SERVER['REQUEST_METHOD']);
 
 		// limpa as variaveis $_GET, $_POST e input,
 		// desta forma quando o request method pode mudar (PUT,DELETE,POST ou GET) e
@@ -30,12 +31,9 @@ class App
 		// requests de fora 
 
 		if(Middleware::verifyToken())
-			Router::executar($this->request['CONTROLLER'],$this->request['METODO'],$this->request['PARAMETROS']);
+			Route::executar($this->request['CONTROLLER'],$this->request['METODO'],$this->request['PARAMETROS']);
 		else
-		{
 			echo json_encode(['success'=>false,'msg'=>'request indevido']);
-			exit;
-		}		
-	}
-	
+	}	
 }
+

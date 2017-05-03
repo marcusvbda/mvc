@@ -2,7 +2,7 @@
 namespace App\Core;
 
 
-class Router
+class Route
 {
 	
 	public static function executar($controller,$metodo,$parametros=[])
@@ -12,17 +12,17 @@ class Router
 
 	public static function processUrl($url,$request_method='GET')
 	{
-		$controller = 'homeController';
+		$controller = 'indexController';
 		$metodo     = 'index';
 		$parametros = [];
 		$posicao    = 0;
 
-		$url = Router::parseUrl($url);
+		$url = Route::parseUrl($url);
 
 		//identifica o controller
 		if(isset($url[$posicao]))
 		{
-			if(file_exists(ROOT_PATH.'/app/MVC/controllers/'.$url[$posicao].'Controller'.'.php'))
+			if(file_exists(root_path().'/app/MVC/controllers/'.$url[$posicao].'Controller'.'.php'))
 			{
 				$controller = $url[$posicao].'Controller';
 				unset($url[$posicao]);
@@ -32,7 +32,7 @@ class Router
 
 		// define o controller
 		$nome_controller = $controller;	
-		require ROOT_PATH.'/app/MVC/controllers/'.$nome_controller.'.php';
+		require root_path().'/app/MVC/controllers/'.$nome_controller.'.php';
 		$controller = new $controller;
 	
 
@@ -62,7 +62,6 @@ class Router
 	{
 		header("Location:$url");
 	}
-
 	
 
 
